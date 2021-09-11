@@ -45,4 +45,4 @@ gem 'rubocop', '~> 1.20'
 
 gem 'rubocop-rails', '~> 2.12'
 
-gem "pry", "~> 0.14.1"
+gem 'pry', '~> 0.14.1'
