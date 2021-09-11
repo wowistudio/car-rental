@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  vehicle: one
+  member: one
+  state: MyString
+  return_at: 2021-09-11 13:03:47
+  returned_at: 2021-09-11 13:03:47
+
+two:
+  vehicle: two
+  member: two
+  state: MyString
+  return_at: 2021-09-11 13:03:47
+  returned_at: 2021-09-11 13:03:47
