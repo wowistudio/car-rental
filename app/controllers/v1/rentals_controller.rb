@@ -4,7 +4,7 @@ class V1::RentalsController < ApplicationController
   def rent
     render_json(
       message: 'Vehicle rented',
-      data: Rentals::Service::RentVehicle.new(member, permitted_params).call
+      data: Rentals::Service::RentVehicle.new(member, rent_params).call
     )
   end
 
@@ -15,9 +15,20 @@ class V1::RentalsController < ApplicationController
     )
   end
 
+  def pay
+    render_json(
+      message: 'Vehicle payment updated',
+      data: Payments::Service::UpdatePaymentBalance.new(member, payment_params).call
+    )
+  end
+
   private
 
-  def permitted_params
+  def rent_params
     params.require(:vehicle).permit(:id, :hours)
+  end
+
+  def payment_params
+    params.require(:payment).permit(:payment_method, :amount)
   end
 end

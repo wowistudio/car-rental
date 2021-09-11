@@ -6,7 +6,7 @@ module Rentals
       end
 
       def call
-        update_returned_at
+        update_rental
         set_amount_to_pay
 
         rental.payment
@@ -16,8 +16,8 @@ module Rentals
 
       attr_reader :member
 
-      def update_returned_at
-        rental.update(returned_at: Time.current)
+      def update_rental
+        rental.update(returned_at: Time.current, state: 'payment')
       end
 
       def set_amount_to_pay
@@ -33,7 +33,7 @@ module Rentals
       end
 
       def rental
-        Rental.find_by(member_id: member.id, state: 'rented')
+        @rental ||= Rental.find_by(member_id: member.id, state: 'rented')
       end
     end
   end

@@ -8,5 +8,6 @@ Rails.application.routes.draw do
   namespace 'v1' do
     post '/rent-a-car' => 'rentals#rent'
     post '/return-a-car' => 'rentals#return'
+    post '/pay-a-car' => 'rentals#pay'
   end
 end
