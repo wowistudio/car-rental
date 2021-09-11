@@ -1,0 +1,53 @@
+{
+	"info": {
+		"_postman_id": "2e326d68-9635-4a54-b557-1e97bba2c2e3",
+		"name": "CarRental",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Health",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{car_rental_base_url}}/monitoring/health",
+					"host": [
+						"{{car_rental_base_url}}"
+					],
+					"path": [
+						"monitoring",
+						"health"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "car_rental_base_url",
+			"value": "http://localhost:3000"
+		}
+	]
+}

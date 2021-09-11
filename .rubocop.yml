@@ -1,0 +1,89 @@
+require: rubocop-rails
+
+AllCops:
+  TargetRubyVersion: 2.6
+  Exclude:
+    - 'db/**/*'
+    - 'config/**/*'
+    - 'script/**/*'
+    - 'node_modules/**/*'
+    - 'bin/*'
+    - 'app/views/**/*'
+    - 'vendor/bundle/**/*'
+
+Rails:
+  Enabled: true
+
+Rails/HasAndBelongsToMany:
+  Enabled: false
+
+Style/SymbolProc:
+  IgnoredMethods: ['sequence']
+
+Metrics/AbcSize:
+  Max: 35
+
+Layout/LineLength:
+  Exclude:
+    - 'spec/**/*'
+    - 'lib/tasks/**/*'
+  Max: 120
+
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle: indented
+  IndentationWidth: 2
+
+Layout/ArgumentAlignment:
+  EnforcedStyle: with_fixed_indentation
+  IndentationWidth: 2
+
+Layout/ArrayAlignment:
+  EnforcedStyle: with_fixed_indentation
+  IndentationWidth: 2
+
+Layout/FirstArgumentIndentation:
+  EnforcedStyle: consistent
+
+Layout/FirstHashElementIndentation:
+  EnforcedStyle: consistent
+
+Metrics/MethodLength:
+  Max: 30
+
+Style/FrozenStringLiteralComment:
+  EnforcedStyle: never
+
+Style/Documentation:
+  Enabled: false
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+Metrics/ClassLength:
+  Enabled: false
+
+Naming/MethodParameterName:
+  MinNameLength: 2
+
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*'
+    - 'lib/tasks/**/*'
+
+Lint/AmbiguousBlockAssociation:
+  Exclude:
+    - 'spec/**/*'
+    - 'lib/tasks/**/*'
+
+Lint/NonDeterministicRequireOrder:
+  Exclude:
+    - 'spec/**/*'
+
+Style/Lambda:
+  EnforcedStyle: literal
+
+Metrics/ModuleLength:
+  Max: 150
+
+Style/ModuleFunction:
+  EnforcedStyle: extend_self
