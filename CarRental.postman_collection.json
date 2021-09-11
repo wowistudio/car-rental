@@ -22,6 +22,165 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Rent",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-Member-Id",
+						"value": "G-584294-FM",
+						"description": "Gold member",
+						"type": "text"
+					},
+					{
+						"key": "X-Member-Id",
+						"value": "N-59323519",
+						"description": "Regular member",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"vehicle\": {\n        \"id\": \"1\",\n        \"hours\": 5\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{car_rental_base_url}}/v1/rent-a-car/",
+					"host": [
+						"{{car_rental_base_url}}"
+					],
+					"path": [
+						"v1",
+						"rent-a-car",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Return",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-Member-Id",
+						"value": "G-584294-FM",
+						"description": "Gold member",
+						"type": "text"
+					},
+					{
+						"key": "X-Member-Id",
+						"value": "N-59323519",
+						"description": "Regular member",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "{{car_rental_base_url}}/v1/return-a-car/",
+					"host": [
+						"{{car_rental_base_url}}"
+					],
+					"path": [
+						"v1",
+						"return-a-car",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Pay",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-Member-Id",
+						"value": "G-584294-FM",
+						"description": "Gold member",
+						"type": "text"
+					},
+					{
+						"key": "X-Member-Id",
+						"value": "N-59323519",
+						"description": "Regular member",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"payment\": {\n        \"payment_method\": \"CASH\",\n        \"amount\": 5\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{car_rental_base_url}}/v1/pay-a-car/",
+					"host": [
+						"{{car_rental_base_url}}"
+					],
+					"path": [
+						"v1",
+						"pay-a-car",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cashback",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-Member-Id",
+						"value": "G-584294-FM",
+						"description": "Gold member",
+						"type": "text"
+					},
+					{
+						"key": "X-Member-Id",
+						"value": "N-59323519",
+						"description": "Regular member",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"payment\": {\n        \"payment_method\": \"CASH\",\n        \"amount\": 50\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{car_rental_base_url}}/v1/cashback/",
+					"host": [
+						"{{car_rental_base_url}}"
+					],
+					"path": [
+						"v1",
+						"cashback",
+						""
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"event": [
