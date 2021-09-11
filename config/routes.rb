@@ -9,5 +9,6 @@ Rails.application.routes.draw do
     post '/rent-a-car' => 'rentals#rent'
     post '/return-a-car' => 'rentals#return'
     post '/pay-a-car' => 'rentals#pay'
+    post '/cashback' => 'rentals#cashback'
   end
 end

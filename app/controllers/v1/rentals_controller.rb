@@ -22,6 +22,13 @@ class V1::RentalsController < ApplicationController
     )
   end
 
+  def cashback
+    render_json(
+      message: 'Cash returned',
+      data: Payments::Cash::Service::ReturnChange.new(member).call
+    )
+  end
+
   private
 
   def rent_params

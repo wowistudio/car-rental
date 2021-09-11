@@ -9,7 +9,8 @@ module Payments
 
         def call
           update_payment
-          mark_rental_finished unless rental.payment.balance.negative?
+          mark_rental_finished if rental.payment.balance.zero?
+          mark_rental_cashback if rental.payment.balance.positive?
 
           {
             rental_state: rental.reload.state,
@@ -23,6 +24,10 @@ module Payments
 
         def mark_rental_finished
           rental.update(state: 'finished')
+        end
+
+        def mark_rental_cashback
+          rental.update(state: 'cashback')
         end
 
         def update_payment
