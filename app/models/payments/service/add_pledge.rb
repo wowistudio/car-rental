@@ -22,7 +22,7 @@ module Payments
       attr_reader :member, :params
 
       def rentals_pledge
-        member.rentals.where(state: Rental.states[:pledging])
+        member.rentals.where(state: Rental.states[:pending])
       end
     end
   end

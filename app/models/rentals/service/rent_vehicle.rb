@@ -34,9 +34,7 @@ module Rentals
       end
 
       def rental_state
-        return Rental.states[:pledging] if needs_pledge?
-
-        Rental.states[:rented]
+        needs_pledge? ? Rental.states[:pending] : Rental.states[:rented]
       end
 
       def payment

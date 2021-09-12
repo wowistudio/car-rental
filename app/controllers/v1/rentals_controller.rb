@@ -18,7 +18,7 @@ class V1::RentalsController < ApplicationController
       data: Payments::Service::AddPledge.new(member, pledge_params).call
     )
   rescue Payments::Service::AddPledge::NoPendingPledge
-    render_error(error: 'No rentals with state: pledging')
+    render_error(error: 'No rentals with state: pending')
   rescue Payments::Cash::Service::AddPledge::UnsupportedAmount
     render_error(error: 'Unsupported amount')
   end

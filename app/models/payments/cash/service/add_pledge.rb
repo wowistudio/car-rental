@@ -17,13 +17,17 @@ module Payments
 
           {
             rental_state: rental.reload.state,
-            pledge_remaining: pledge_amount_remaining
+            pledge_remaining: total_pledge_needed - balance
           }
         end
 
         private
 
         attr_reader :member, :params
+
+        def balance
+          rental.payment.balance
+        end
 
         def unsupported_amount?
           Prices::Service::CashbackOptimization::SUPPORTED_AMOUNTS.exclude?(params[:amount])
@@ -34,19 +38,19 @@ module Payments
         end
 
         def pledge_amount_remaining
-          total_pledge_amount - rental.reload.payment.balance
+          total_pledge_needed - balance
         end
 
         def add_pledge_amount
           rental.payment.add_balance(params[:amount])
         end
 
-        def total_pledge_amount
+        def total_pledge_needed
           Prices::Service::PledgeAmount.new(member, rental.vehicle).call
         end
 
         def rental
-          @rental ||= Rental.find_by(member_id: member.id, state: Rental.states[:pledging])
+          @rental ||= Rental.find_by(member_id: member.id, state: Rental.states[:pending])
         end
       end
     end
