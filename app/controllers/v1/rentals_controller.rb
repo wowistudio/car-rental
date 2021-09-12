@@ -6,6 +6,8 @@ class V1::RentalsController < ApplicationController
       message: 'Vehicle rented',
       data: Rentals::Service::RentVehicle.new(member, rent_params).call
     )
+  rescue Rentals::Service::RentVehicle::HasCurrentRentals
+    render_error(error: 'Has unfinished rentals')
   end
 
   def return
@@ -13,6 +15,8 @@ class V1::RentalsController < ApplicationController
       message: 'Vehicle returned',
       data: Rentals::Service::ReturnVehicle.new(member, return_vehicle_params).call
     )
+  rescue Rentals::Service::ReturnVehicle::NoCurrentRented
+    render_error(error: 'No rentals with state: rented')
   end
 
   def pay
@@ -20,6 +24,8 @@ class V1::RentalsController < ApplicationController
       message: 'Vehicle payment updated',
       data: Payments::Service::UpdatePaymentBalance.new(member, payment_params).call
     )
+  rescue Payments::Service::UpdatePaymentBalance::NoPendingPayment
+    render_error(error: 'No rentals with state: payment')
   end
 
   def cashback
@@ -27,6 +33,8 @@ class V1::RentalsController < ApplicationController
       message: 'Cash returned',
       data: Payments::Cash::Service::ReturnChange.new(member).call
     )
+  rescue Payments::Cash::Service::ReturnChange::NoPendingCashback
+    render_error(error: 'No rentals with state: cashback')
   end
 
   private

@@ -1,12 +1,16 @@
 module Rentals
   module Service
     class RentVehicle
+      HasCurrentRentals = Class.new(StandardError)
+
       def initialize(member, params)
         @member = member
         @params = params
       end
 
       def call
+        raise HasCurrentRentals if unfinished_rentals.any?
+
         rental
       end
 
@@ -30,6 +34,10 @@ module Rentals
 
       def vehicle
         Vehicle.find_by(uid: params[:uid])
+      end
+
+      def unfinished_rentals
+        member.rentals.where.not(state: Rental.states[:finished])
       end
     end
   end

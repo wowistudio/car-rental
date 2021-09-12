@@ -2,11 +2,15 @@ module Payments
   module Cash
     module Service
       class ReturnChange
+        NoPendingCashback = Class.new(StandardError)
+
         def initialize(member)
           @member = member
         end
 
         def call
+          raise NoPendingCashback if rental.nil?
+
           cashback = Prices::Service::CashbackOptimization.new(rental.payment.balance).call
 
           mark_rental_finished

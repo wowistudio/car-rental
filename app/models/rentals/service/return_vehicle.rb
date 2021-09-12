@@ -1,12 +1,16 @@
 module Rentals
   module Service
     class ReturnVehicle
+      NoCurrentRented = Class.new(StandardError)
+
       def initialize(member, params)
         @member = member
         @params = params
       end
 
       def call
+        raise NoCurrentRented if rental.nil?
+
         update_rental
         set_amount_to_pay
 
