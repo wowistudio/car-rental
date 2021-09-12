@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
   namespace 'v1' do
     post '/rent-a-car' => 'rentals#rent'
+    post '/pledge' => 'rentals#pledge'
     post '/return-a-car' => 'rentals#return'
     post '/pay-a-car' => 'rentals#pay'
     post '/cashback' => 'rentals#cashback'

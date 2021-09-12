@@ -8,4 +8,4 @@ down:
 
 .PHONY: lint
 lint:
-	bundle exec rubocop -a
+	bundle exec rubocop -A

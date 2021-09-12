@@ -4,7 +4,7 @@ class Rental < ApplicationRecord
   has_one :payment, dependent: :destroy
 
   enum state: {
-    pending: 'pending',
+    pledging: 'pledging',
     rented: 'rented',
     payment: 'payment',
     cashback: 'cashback',

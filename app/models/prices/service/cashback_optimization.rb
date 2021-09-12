@@ -1,7 +1,7 @@
 module Prices
   module Service
     class CashbackOptimization
-      SUPPORTED_AMOUNTS = [50, 20, 10, 5, 2, 1, 0.5, 0.2]
+      SUPPORTED_AMOUNTS = [50, 20, 10, 5, 2, 1, 0.5, 0.2].freeze
 
       def initialize(amount)
         @initial = Prices::Service::RoundPrice.new(amount).call

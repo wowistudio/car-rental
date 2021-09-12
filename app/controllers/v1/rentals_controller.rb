@@ -6,8 +6,21 @@ class V1::RentalsController < ApplicationController
       message: 'Vehicle rented',
       data: Rentals::Service::RentVehicle.new(member, rent_params).call
     )
+  rescue Rentals::Service::RentVehicle::NeedsPledge
+    render_json(message: 'Vehicle reserved. Pledge pending')
   rescue Rentals::Service::RentVehicle::HasCurrentRentals
     render_error(error: 'Has unfinished rentals')
+  end
+
+  def pledge
+    render_json(
+      message: 'Pledge added',
+      data: Payments::Service::AddPledge.new(member, pledge_params).call
+    )
+  rescue Payments::Service::AddPledge::NoPendingPledge
+    render_error(error: 'No rentals with state: pledging')
+  rescue Payments::Cash::Service::AddPledge::UnsupportedAmount
+    render_error(error: 'Unsupported amount')
   end
 
   def return
@@ -43,6 +56,10 @@ class V1::RentalsController < ApplicationController
 
   def rent_params
     params.require(:vehicle).permit(:uid, :hours)
+  end
+
+  def pledge_params
+    params.require(:pledge).permit(:payment_method, :amount)
   end
 
   def return_vehicle_params

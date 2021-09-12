@@ -1,6 +1,6 @@
 module Prices
   module Service
-    class Pledge
+    class PledgeAmount
       def initialize(member, vehicle)
         @member = member
         @vehicle = vehicle
@@ -8,7 +8,7 @@ module Prices
 
       def call
         return 0 if member.gold?
-        return 100 if %w[L M N].include?(vehicle.uid)
+        return 100 if %w[L M N].include?(vehicle.uid.first)
 
         300
       end

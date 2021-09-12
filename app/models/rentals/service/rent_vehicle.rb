@@ -1,6 +1,7 @@
 module Rentals
   module Service
     class RentVehicle
+      NeedsPledge = Class.new(StandardError)
       HasCurrentRentals = Class.new(StandardError)
 
       def initialize(member, params)
@@ -12,6 +13,10 @@ module Rentals
         raise HasCurrentRentals if unfinished_rentals.any?
 
         rental
+
+        raise NeedsPledge if needs_pledge?
+
+        rental
       end
 
       private
@@ -19,13 +24,19 @@ module Rentals
       attr_reader :member, :params
 
       def rental
-        Rental.create(
+        @rental ||= Rental.create(
           vehicle: vehicle,
           member: member,
           payment: payment,
-          state: Rental.states[:rented],
+          state: rental_state,
           return_at: Time.current + params[:hours].hours
         )
+      end
+
+      def rental_state
+        return Rental.states[:pledging] if needs_pledge?
+
+        Rental.states[:rented]
       end
 
       def payment
@@ -38,6 +49,10 @@ module Rentals
 
       def unfinished_rentals
         member.rentals.where.not(state: Rental.states[:finished])
+      end
+
+      def needs_pledge?
+        Prices::Service::PledgeAmount.new(member, vehicle).call.positive?
       end
     end
   end

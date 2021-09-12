@@ -22,7 +22,7 @@ module Rentals
       attr_reader :member, :params
 
       def returned_at
-        Time.parse(params[:return_at]) || Time.current
+        Time.zone.parse(params[:return_at]) || Time.current
       end
 
       def update_rental
