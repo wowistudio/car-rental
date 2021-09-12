@@ -2,12 +2,16 @@ module Payments
   module Cash
     module Service
       class UpdatePaymentBalance
+        UnsupportedAmount = Class.new(StandardError)
+
         def initialize(member, params)
           @member = member
           @params = params
         end
 
         def call
+          raise UnsupportedAmount if unsupported_amount?
+
           update_payment
           mark_rental_finished if rental.payment.balance.zero?
           mark_rental_cashback if rental.payment.balance.positive?
@@ -21,6 +25,10 @@ module Payments
         private
 
         attr_reader :member, :params
+
+        def unsupported_amount?
+          Prices::Service::CashbackOptimization::SUPPORTED_AMOUNTS.exclude?(params[:amount])
+        end
 
         def mark_rental_finished
           rental.update(state: 'finished')

@@ -1,6 +1,8 @@
 module Prices
   module Service
     class CashbackOptimization
+      SUPPORTED_AMOUNTS = [50, 20, 10, 5, 2, 1, 0.5, 0.2]
+
       def initialize(amount)
         @amount = Prices::Service::RoundPrice.new(amount).call
       end
@@ -14,15 +16,11 @@ module Prices
       attr_reader :amount
 
       def cashbacks
-        supported_values.map do |value|
+        SUPPORTED_AMOUNTS.map do |value|
           times = (amount / value).floor
           @amount = amount - (times * value)
           [value, times]
         end
-      end
-
-      def supported_values
-        [50, 20, 10, 5, 2, 1, 0.5, 0.2]
       end
     end
   end

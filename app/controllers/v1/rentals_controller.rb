@@ -26,6 +26,8 @@ class V1::RentalsController < ApplicationController
     )
   rescue Payments::Service::UpdatePaymentBalance::NoPendingPayment
     render_error(error: 'No rentals with state: payment')
+  rescue Payments::Cash::Service::UpdatePaymentBalance::UnsupportedAmount
+    render_error(error: 'Unsupported amount')
   end
 
   def cashback
