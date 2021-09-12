@@ -9,3 +9,7 @@ down:
 .PHONY: lint
 lint:
 	bundle exec rubocop -A
+
+.PHONY: reset
+reset:
+	bundle exec rake db:reset
