@@ -1,5 +1,7 @@
 # CAR RENTAL SERVICE
 
+### Basics & setup
+
 **Services**
 
 *Postgres*
@@ -36,6 +38,8 @@ To check if the server is healthy:
 $ curl http://localhost:3000/monitoring/health
 👍 All good
 ```
+
+### Usage
 
 **Member authentication**
 
