@@ -1,0 +1,6 @@
+{
+  "payment": {
+      "payment_method": "CASH",
+      "amount": 50
+  }
+}
