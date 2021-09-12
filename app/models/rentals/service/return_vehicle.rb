@@ -26,15 +26,11 @@ module Rentals
       end
 
       def set_amount_to_pay
-        rental.payment.update(balance: -total_price_rounded)
+        rental.payment.update(balance: -total_price)
       end
 
-      def total_price_rounded
-        Prices::Service::RoundPrice.new(
-          Prices::Service::TotalPrice.new(
-            rental
-          ).call
-        ).call
+      def total_price
+        Prices::Service::TotalPrice.new(rental).call
       end
 
       def rental

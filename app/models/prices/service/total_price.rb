@@ -9,7 +9,7 @@ module Prices
       end
 
       def call
-        hourly_rate * time_rented_adjusted
+        (hourly_rate * time_rented_adjusted).round(2)
       end
 
       private

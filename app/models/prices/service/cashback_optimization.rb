@@ -2,7 +2,7 @@ module Prices
   module Service
     class CashbackOptimization
       def initialize(amount)
-        @amount = amount
+        @amount = Prices::Service::RoundPrice.new(amount).call
       end
 
       def call
