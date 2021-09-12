@@ -11,7 +11,7 @@ class V1::RentalsController < ApplicationController
   def return
     render_json(
       message: 'Vehicle returned',
-      data: Rentals::Service::ReturnVehicle.new(member).call
+      data: Rentals::Service::ReturnVehicle.new(member, return_vehicle_params).call
     )
   end
 
@@ -33,6 +33,10 @@ class V1::RentalsController < ApplicationController
 
   def rent_params
     params.require(:vehicle).permit(:uid, :hours)
+  end
+
+  def return_vehicle_params
+    params.require(:vehicle).permit(:return_at)
   end
 
   def payment_params

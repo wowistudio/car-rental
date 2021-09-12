@@ -21,7 +21,7 @@ module Prices
       end
 
       def time_rented
-        (@rental.returned_at - @rental.created_at) / SECONDS_PER_HOUR
+        (@rental.return_at - @rental.created_at) / SECONDS_PER_HOUR
       end
 
       def hourly_rate

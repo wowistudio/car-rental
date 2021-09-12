@@ -1,8 +1,9 @@
 module Rentals
   module Service
     class ReturnVehicle
-      def initialize(member)
+      def initialize(member, params)
         @member = member
+        @params = params
       end
 
       def call
@@ -14,10 +15,14 @@ module Rentals
 
       private
 
-      attr_reader :member
+      attr_reader :member, :params
+
+      def returned_at
+        Time.parse(params[:return_at]) || Time.current
+      end
 
       def update_rental
-        rental.update(returned_at: Time.current, state: 'payment')
+        rental.update(returned_at: returned_at, state: 'payment')
       end
 
       def set_amount_to_pay
