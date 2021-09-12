@@ -10,14 +10,13 @@ module Payments
         end
 
         def call
-          raise UnsupportedAmount if unsupported_amount?
+          raise UnsupportedAmount unless amount_valid?
 
-          add_pledge_amount
-          mark_rental_rented unless pledge_amount_remaining.positive?
+          updated_balance = add_pledge
 
           {
             rental_state: rental.reload.state,
-            pledge_remaining: total_pledge_needed - balance
+            pledge_remaining: pledge_amount - updated_balance
           }
         end
 
@@ -25,28 +24,22 @@ module Payments
 
         attr_reader :member, :params
 
-        def balance
-          rental.payment.balance
-        end
-
-        def unsupported_amount?
-          Prices::Service::CashbackOptimization::SUPPORTED_AMOUNTS.exclude?(params[:amount])
+        def amount_valid?
+          Prices::Service::CashbackOptimization.new(params[:amount]).amount_valid?
         end
 
         def mark_rental_rented
           rental.update(state: Rental.states[:rented])
         end
 
-        def pledge_amount_remaining
-          total_pledge_needed - balance
+        def pledge_amount
+          @pledge_amount ||= Prices::Service::PledgeAmount.new(member, rental.vehicle).call
         end
 
-        def add_pledge_amount
-          rental.payment.add_balance(params[:amount])
-        end
-
-        def total_pledge_needed
-          Prices::Service::PledgeAmount.new(member, rental.vehicle).call
+        def add_pledge
+          updated_balance, added_amount = rental.payment.add_balance(params[:amount])
+          mark_rental_rented unless (updated_balance - pledge_amount).negative?
+          updated_balance
         end
 
         def rental

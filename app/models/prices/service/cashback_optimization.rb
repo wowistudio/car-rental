@@ -15,6 +15,10 @@ module Prices
         }
       end
 
+      def amount_valid?
+        SUPPORTED_AMOUNTS.include?(amount)
+      end
+
       private
 
       attr_reader :amount

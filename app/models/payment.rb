@@ -3,7 +3,7 @@ class Payment < ApplicationRecord
 
   def add_balance(balance_addition)
     update(balance: (balance + balance_addition).round(2))
-    balance
+    [balance, balance_addition]
   end
 
   def eject_balance

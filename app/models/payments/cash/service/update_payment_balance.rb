@@ -10,7 +10,7 @@ module Payments
         end
 
         def call
-          raise UnsupportedAmount if unsupported_amount?
+          raise UnsupportedAmount unless amount_valid?
 
           update_payment
           mark_rental_finished if rental.payment.balance.zero?
@@ -18,7 +18,7 @@ module Payments
 
           {
             rental_state: rental.reload.state,
-            payment_balance: rental.payment.balance
+            payment_remaining: -rental.payment.balance
           }
         end
 
@@ -26,8 +26,8 @@ module Payments
 
         attr_reader :member, :params
 
-        def unsupported_amount?
-          Prices::Service::CashbackOptimization::SUPPORTED_AMOUNTS.exclude?(params[:amount])
+        def amount_valid?
+          Prices::Service::CashbackOptimization.new(params[:amount]).amount_valid?
         end
 
         def mark_rental_finished
