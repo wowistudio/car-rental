@@ -1,6 +1,7 @@
 # CAR RENTAL SERVICE
 
 **Services**
+
 *Postgres*
 - For info credentials defaults, see `config/database.yml`
 - Run `make up` to start the postgres container with docker compose
@@ -9,8 +10,15 @@
 - Rake version `13.0.6`
 - Ruby version `2.6.6`
 
- **Setup app**
-Run `make reset` to reset database, run migrations and seed database. Do this again and again to start with a clean sheet.
+**Setup app**
+```bash
+# Install all the necessary dependencies
+bundle install
+
+# Reset the database, run migrations and seed database
+# Do this again and again to start with a clean sheet
+make reset
+```
 
 The following records will be added to the database:
 ```ruby
@@ -30,6 +38,7 @@ $ curl http://localhost:3000/monitoring/health
 ```
 
 **Member authentication**
+
 Include `X-Member-Id` header with every request
 
 **Interact via Postman**
@@ -47,7 +56,8 @@ cd api-calls
 # Source commands file
 source api-calls.sh
 
-# Set member id (used for authentication). Default = regular member id
+# Set member id (used for authentication)
+# Defaults to id of regular member
 export MEMBER_ID="G-584294-FM"
 
 # 1. Rent a vehicle
