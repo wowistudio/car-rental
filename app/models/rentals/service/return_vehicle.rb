@@ -26,7 +26,7 @@ module Rentals
       end
 
       def update_rental
-        rental.update(returned_at: returned_at, state: 'payment')
+        rental.update(returned_at: returned_at, state: Rental.states[:payment])
       end
 
       def set_amount_to_pay
@@ -38,7 +38,7 @@ module Rentals
       end
 
       def rental
-        @rental ||= Rental.find_by(member_id: member.id, state: 'rented')
+        @rental ||= Rental.find_by(member_id: member.id, state: Rental.states[:rented])
       end
     end
   end

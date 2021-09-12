@@ -24,7 +24,7 @@ module Payments
         attr_reader :member
 
         def mark_rental_finished
-          rental.update(state: 'finished')
+          rental.update(state: Rental.states[:finished])
         end
 
         def update_payment
@@ -32,7 +32,7 @@ module Payments
         end
 
         def rental
-          @rental ||= Rental.find_by(member_id: member.id, state: 'cashback')
+          @rental ||= Rental.find_by(member_id: member.id, state: Rental.states[:cashback])
         end
       end
     end

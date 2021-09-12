@@ -31,11 +31,11 @@ module Payments
         end
 
         def mark_rental_finished
-          rental.update(state: 'finished')
+          rental.update(state: Rental.states[:finished])
         end
 
         def mark_rental_cashback
-          rental.update(state: 'cashback')
+          rental.update(state: Rental.states[:cashback])
         end
 
         def update_payment
@@ -43,7 +43,7 @@ module Payments
         end
 
         def rental
-          @rental ||= Rental.find_by(member_id: member.id, state: 'payment')
+          @rental ||= Rental.find_by(member_id: member.id, state: Rental.states[:payment])
         end
       end
     end
