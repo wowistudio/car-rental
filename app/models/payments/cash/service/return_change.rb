@@ -11,10 +11,7 @@ module Payments
         def call
           raise NoPendingCashback if rental.nil?
 
-          cashback = Prices::Service::CashbackOptimization.new(rental.payment.balance).call
-
           mark_rental_finished
-          update_payment
 
           cashback
         end
@@ -22,6 +19,10 @@ module Payments
         private
 
         attr_reader :member
+
+        def cashback
+          Prices::Service::CashbackOptimization.new(rental.payment.eject_balance).call
+        end
 
         def mark_rental_finished
           rental.update(state: Rental.states[:finished])
