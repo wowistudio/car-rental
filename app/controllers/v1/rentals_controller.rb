@@ -32,7 +32,7 @@ class V1::RentalsController < ApplicationController
   private
 
   def rent_params
-    params.require(:vehicle).permit(:id, :hours)
+    params.require(:vehicle).permit(:uid, :hours)
   end
 
   def payment_params

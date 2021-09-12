@@ -29,7 +29,7 @@ module Rentals
       end
 
       def vehicle
-        Vehicle.find(params[:id])
+        Vehicle.find_by(uid: params[:uid])
       end
     end
   end
